@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <nav class="navbar navbar-expand bgNav">
-       <img src="../public/survey-check1.png" alt="..." height="50">
+       <img class="logo" src="../public/survey-check4.png" alt="..." height="50">
       <a href="/" class="navbar-brand">SurveyCreator</a>
       <div class="navbar-nav mr-auto">
         <li class="nav-item">
@@ -20,7 +20,7 @@
         </li>
          <li class="nav-item">
           <router-link to="/register" class="nav-link">
-             <button class="btn btn-outline-success btn-sm my-2 my-sm-0" type="submit"><font-awesome-icon icon="user-plus" /> Sign Up</button>
+             <button class="btn btn-outline-default btn-sm my-2 my-sm-0" type="submit"><font-awesome-icon icon="user-plus" /> Sign Up</button>
           </router-link>
         </li>
       </div>
@@ -59,6 +59,10 @@ export default {
 
 .bgNav .navbar-nav .nav-link {
 color: rgb(255 255 255 / 83%) !important;
+}
+
+.logo{
+  margin-right: 10px;
 }
 
 </style>
