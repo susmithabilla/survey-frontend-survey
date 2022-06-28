@@ -65,4 +65,8 @@ color: rgb(255 255 255 / 83%) !important;
   margin-right: 10px;
 }
 
+body{
+    background-color: #d3d3d370;
+}
+
 </style>
