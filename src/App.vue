@@ -9,13 +9,17 @@
             <font-awesome-icon icon="home" /> Home
           </router-link>
         </li>
+        
         <li v-if="showAdminBoard" class="nav-item">
           <router-link to="/admin" class="nav-link">Admin Board</router-link>
         </li>
         <li v-if="showGuestBoard" class="nav-item">
           <router-link to="/mod" class="nav-link">Guest Board</router-link>
         </li>
-        <li class="nav-item">
+        <li v-if="showAdminBoard" class="nav-item">
+          <router-link to="/adduser" class="nav-link">Users</router-link>
+        </li>
+        <li v-else class="nav-item">
           <router-link v-if="currentUser" to="/user" class="nav-link">User</router-link>
         </li>
       </div>
@@ -29,7 +33,7 @@
         </li>
          <li class="nav-item">
           <router-link to="/register" class="nav-link">
-             <button class="btn btn-outline-default btn-sm my-2 my-sm-0" type="submit"><font-awesome-icon icon="user-plus" /> Sign Up</button>
+             <button class="btn btn-primary btn-sm my-2 my-sm-0" type="submit"><font-awesome-icon icon="user-plus" /> Sign Up</button>
           </router-link>
         </li>
       </div>
@@ -50,7 +54,7 @@
 
     </nav>
 
-    <div class="container">
+    <div class="container appData">
       <router-view />
     </div>
   </div>
@@ -108,6 +112,10 @@ color: rgb(255 255 255 / 83%) !important;
 
 body{
     background-color: #d3d3d370;
+}
+
+.appData{
+  margin-top: 4%;
 }
 
 </style>
