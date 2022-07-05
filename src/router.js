@@ -60,7 +60,13 @@ export const router = new Router({
       path: '/survey',
       name: 'survey',
       // lazy-loaded
-      component: () => import('./views/Survey/CreateSurvey.vue')
+      component: () => import('./views/Survey/create.vue')
+    },
+    {
+      path: "/survey/:id",
+      name: "edit-survey",
+      component: () => import('./views/Survey/edit.vue'),
+      props: true
     },
   ]
 });
