@@ -13,6 +13,7 @@
     "@fortawesome/vue-fontawesome": "^0.1.7",
     "axios": "^0.19.0",
     "bootstrap": "^4.3.1",
+    "bootstrap-vue": "^2.22.0",
     "core-js": "^2.6.5",
     "jquery": "^3.4.1",
     "popper.js": "^1.15.0",
@@ -20,6 +21,7 @@
     "survey-vue": "^1.7.19",
     "vee-validate": "^2.2.15",
     "vue": "^2.6.10",
+    "vue-bootstrap4-table": "^1.1.11",
     "vue-router": "^3.0.3",
     "vuex": "^3.0.1"
   },

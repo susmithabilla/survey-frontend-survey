@@ -6,34 +6,25 @@
 import { SurveyCreator } from "survey-creator-knockout";
 import "survey-core/defaultV2.min.css";
 import "survey-creator-core/survey-creator-core.min.css";
+import SurveyData from "../../services/surveydata";
 
 const creatorOptions = {
   showLogicTab: true,
 };
 
-const defaultJson = {
-  pages: [{
-    name: "Name",
-    elements: [{
-      name: "FirstName",
-      title: "Enter your first name:",
-      type: "text"
-    }, {
-      name: "LastName",
-      title: "Enter your last name:",
-      type: "text"
-    }]
-  }]
-};
 
 export default {
   name: "survey-creator",
   mounted() {
     const creator = new SurveyCreator(creatorOptions);
-    creator.text = window.localStorage.getItem("survey-json") || JSON.stringify(defaultJson);
+
     creator.saveSurveyFunc = (saveNo, callback) => { 
-      window.localStorage.setItem("survey-json", creator.text);
+      // window.localStorage.setItem("survey-json", creator.text);
       callback(saveNo, true);
+        SurveyData.createSurvey(creator.JSON.title, creator.text)
+        .then(response => {
+           this.$router.push('/admin');
+        })
       // saveSurveyJson(
       //     "https://your-web-service.com/",
       //     creator.JSON,

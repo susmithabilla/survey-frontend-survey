@@ -68,14 +68,14 @@ export default {
     },
     showAdminBoard() {
       if (this.currentUser && this.currentUser['roles']) {
-        return this.currentUser['roles'].includes('ROLE_ADMIN');
+        return this.currentUser['roles'].includes('ROLE_SUPERADMIN');
       }
 
       return false;
     },
     showGuestBoard() {
       if (this.currentUser && this.currentUser['roles']) {
-        return this.currentUser['roles'].includes('ROLE_GUEST');
+        return this.currentUser['roles'].includes('ROLE_ADMIN');
       }
 
       return false;
