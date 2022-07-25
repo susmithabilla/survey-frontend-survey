@@ -1,14 +1,5 @@
-<h1 align="center">Dashboard Admin</h1>
-<p align="center">this dashboard app on development fork 
-this repo and contribute</p>
-
-<div align="center">
-<img src="https://img.shields.io/github/repo-size/sahrullahh/windzo" />
-<img src="https://img.shields.io/github/license/sahrullahh/windzo" />
-<a href="https://www.npmjs.com/package/windzo">
-<img src="https://img.shields.io/npm/v/windzo">
-</a>
-</div>
+<h1 align="center">Survey Application</h1>
+<p align="center">this app on development</p>
 
 
 ## Step to run this app

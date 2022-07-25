@@ -1,7 +1,8 @@
 <template>
   <!-- component -->
   <!-- This is an example component -->
-  <div class="max-w-6xl mx-auto">
+  <h1 v-if="!surveys.length">No Surveys found</h1>
+  <div v-else class="max-w-6xl mx-auto">
 
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
       <div class="p-4">
@@ -44,7 +45,30 @@
         </thead>
         <tbody v-for="survey in surveys" :key="survey.id" :survey="survey">
           <!-- <tr v-if="survey.id != currentUser.id" -->
-          <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+           
+             <tr v-if="isSuperAdmin" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+            <td class="px-6 py-4">              
+            </td>
+
+            <td scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
+              {{ survey.title }}
+            </td>
+            <td class="px-6 py-4">
+              {{ survey.username }}
+            </td>
+             <td class="px-6 py-4">
+              {{ survey.createdAt.substring(0, 10) }}
+            </td>
+
+            <td class="px-6 py-4 text-right">
+              <span @click="View(survey)" class="font-medium cursor-pointer text-green-600 dark:text-green-500 hover:underline mr-3">View </span>
+              <span @click="Edit(survey)" class="font-medium cursor-pointer text-gray-600 dark:text-gray-500 hover:underline mr-3">Edit </span>
+              <span @click="Delete(survey)"
+                class="font-medium cursor-pointer text-red-600 dark:red-blue-500 hover:underline mr-3">Delete </span>
+              <span class="font-medium cursor-pointer text-blue-600 dark:text-blue-500 hover:underline" @click="showModal = true">Share </span>
+            </td>
+          </tr>
+          <tr v-else-if="currentUser.id == survey.userId" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
             <td class="px-6 py-4">              
             </td>
 
@@ -77,6 +101,7 @@
 </template>
 
 <script>
+import { isExportNamedDeclaration } from "@babel/types";
 import { Icon } from "@iconify/vue";
 import MenuAccordion from "../../components/MenuAccordion.vue";
 import SurveyData from "../../services/survey.service";
@@ -100,6 +125,10 @@ export default {
   computed: {
     currentUser() {
       return this.$store.state.auth.user;
+    },
+  isSuperAdmin() {
+      var currentUser =  this.$store.state.auth.user;
+      return currentUser.roles.includes("ROLE_SUPERADMIN");
     }
   },
   methods: {
@@ -111,6 +140,7 @@ export default {
       SurveyData.getAll()
         .then(response => {
           this.surveys = response.data;
+          console.log("ssssss",this.surveys.length)
         })
     },
     searchOnTable() {

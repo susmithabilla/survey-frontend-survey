@@ -10,6 +10,7 @@ import SurveyData from "../../services/survey.service";
 
 const creatorOptions = {
   showLogicTab: true,
+  haveCommercialLicense: true
 };
 
 var defaultJSON = {
@@ -47,7 +48,8 @@ export default {
 
     creator.saveSurveyFunc = (saveNo, callback) => {
       callback(saveNo, true);
-      SurveyData.update(this.id, creator.JSON.title,creator.JSON,this.$store.state.auth.user.id)
+      var u = this.$store.state.auth.user;
+      SurveyData.update(this.id, creator.JSON.title,creator.JSON,u.id, u.username)
         .then(response => {
           this.$router.push('/surveys');
         })

@@ -32,7 +32,7 @@
           </router-link>
         </div>
 
-        <div class="item mt-3">
+        <div class="item mt-3" v-if="isSuperAdmin">
           <menu-accordion>
             <template v-slot:icon>
               <Icon icon="bi:people" />
@@ -115,6 +115,13 @@ export default {
   components: {
     Icon,
     MenuAccordion,
+  },
+  computed: {
+    isSuperAdmin() {
+      var currentUser =  this.$store.state.auth.user;
+      console.log('currentUser.roles..', currentUser.roles.includes("ROLE_SUPERADMIN"));
+      return currentUser.roles.includes("ROLE_SUPERADMIN");
+    }
   },
   methods: {
     sidebarToggle: function () {

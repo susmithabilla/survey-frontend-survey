@@ -9,15 +9,15 @@ class SurveyService {
     return axios.get(API_URL);
   }
 
-  create(title,data,uid) {
-    return axios.post(API_URL+`?title=${title}&userId=${uid}`, data);
+  create(title,data,uid,name) {
+    return axios.post(API_URL+`?title=${title}&userId=${uid}&username=${name}`, data);
   }
   get(sid) {
     return axios.get(API_URL+`/${sid}`);
   }
 
-  update(sid,title,data, uid) {
-    return axios.put(API_URL+`/${sid}?title=${title}&userId=${uid}`, data);
+  update(sid,title,data, uid, name) {
+    return axios.put(API_URL+`/${sid}?title=${title}&userId=${uid}&username=${name}`, data);
   }
   delete(id) {
     return axios.delete(API_URL+`/${id}`);

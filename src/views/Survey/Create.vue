@@ -10,6 +10,8 @@ import SurveyData from "../../services/survey.service";
 
 const creatorOptions = {
   showLogicTab: false,
+  	showHeaderInEmptySurvey: true,
+    haveCommercialLicense: true
 };
 
 
@@ -21,9 +23,9 @@ export default {
     creator.saveSurveyFunc = (saveNo, callback) => { 
       // window.localStorage.setItem("survey-json", creator.text);
       callback(saveNo, true);
-      console.log("ttttt", creator.JSON)
-       console.log("ttttt111111", creator.text)
-        SurveyData.create(creator.JSON.title, creator.JSON,this.$store.state.auth.user.id)
+      
+       var user = this.$store.state.auth.user;
+        SurveyData.create(creator.JSON.title, creator.JSON,user.id, user.username)
         .then(response => {
            this.$router.push('/surveys');
         })
