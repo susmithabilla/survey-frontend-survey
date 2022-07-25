@@ -1,40 +1,29 @@
-import Vue from 'vue';
-import App from './App.vue';
-import { router } from './router';
+
+import { createApp } from "vue";
+import App from "./App.vue";
+import router from "./router";
 import store from './store';
-import 'bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import VeeValidate from 'vee-validate';
-import Vuex from 'vuex';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
-import {
-  faHome,
-  faUser,
-  faUserPlus,
-  faSignInAlt,
-  faSignOutAlt
-} from '@fortawesome/free-solid-svg-icons';
+import { Icon } from "@iconify/vue";
+import VueApexCharts from "vue3-apexcharts";
+import PerfectScrollbar from "vue3-perfect-scrollbar";
+import "vue3-perfect-scrollbar/dist/vue3-perfect-scrollbar.css";
 
-library.add(faHome, faUser, faUserPlus, faSignInAlt, faSignOutAlt);
+// import "flowbite";
+import "./assets/tailwind.css";
+import "./assets/animate.css";
+import "./assets/sass/css/windzo.css";
 
-Vue.config.productionTip = false;
+const app = createApp(App);
+app.use(router, Icon);
+app.use(VueApexCharts);
+app.use(PerfectScrollbar);
+app.use(store);
+app.mount("#app");
 
+// router.beforeEach((to, from, next) => {
+//     console.log("beforeeeeeee",location.href);
+//     console.log("tooooooo",to.query);
+//   document.querySelector(".flex-sidebar").classList.add("hidden");
+//   next();
+// });
 
-Vue.use(BootstrapVue)
-
-Vue.use(IconsPlugin)
-
-Vue.use(VeeValidate);
-Vue.component('font-awesome-icon', FontAwesomeIcon);
-
-Vue.use(Vuex);
-
-new Vue({
-  router,
-  store,
-  render: h => h(App)
-}).$mount('#app');

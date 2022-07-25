@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import Vue from 'vue';
 import Vuex from 'vuex';
 
@@ -10,3 +11,15 @@ export default new Vuex.Store({
     auth
   }
 });
+=======
+import { createStore } from "vuex";
+import { auth } from "./auth.module";
+
+const store = createStore({
+  modules: {
+    auth,
+  },
+});
+
+export default store;
+>>>>>>> admin-UI
