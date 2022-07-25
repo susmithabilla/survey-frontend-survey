@@ -1,5 +1,5 @@
 <template>
-  <div class="p-4">
+  <!-- <div class="p-4">
     <div
       class="bg-white dark:bg-gray-800 w-full p-6 font-lexend shadow-md rounded-md mt-5"
     >
@@ -11,10 +11,5 @@
         <router-link to="#">Contact</router-link>
       </div>
     </div>
-    <footer class="w-full box-border p-5 mt-3 text-center">
-      <p class="text-sm dark:text-gray-400">
-        Windzo Made by ❤️ Mohammad Sahrullah
-      </p>
-    </footer>
-  </div>
+  </div> -->
 </template>

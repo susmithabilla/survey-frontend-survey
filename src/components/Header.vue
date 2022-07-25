@@ -29,11 +29,11 @@
         <h2
           class="text-md text-indigo-800 ml-3 lg:block hidden px-5 p-2 rounded-md bg-indigo-200"
         >
-          Welcome back, Mohammad Sahrullah
+          Welcome back, {{currentUser.username}}
         </h2>
       </div>
       <div class="mr-5 flex">
-        <div
+        <!-- <div
           class="input-box border dark:bg-gray-900 dark:border-gray-700 rounded-md mr-5 hidden lg:w-search w-full box-border lg:flex md:flex focus-within:bg-gray-100 dark:focus-within:bg-gray-700"
         >
           <span class="text-3xl p-2 text-gray-400"
@@ -44,7 +44,7 @@
             placeholder="Search..."
             class="p-3 w-full bg-white dark:bg-gray-900 rounded-md outline-none focus:bg-gray-100 dark:focus:bg-gray-700"
           />
-        </div>
+        </div> -->
         <button
           id="theme-toggle"
           type="button"
@@ -102,7 +102,7 @@
           >
             <div class="py-3 px-4 text-sm text-gray-900 dark:text-gray-200">
               <div>Logged As</div>
-              <div class="font-medium truncate">Moh Sahrullah</div>
+              <div class="font-medium truncate">{{currentUser.username}}</div>
             </div>
             <ul
               class="py-1 text-sm text-gray-700 dark:text-gray-200"
@@ -131,10 +131,10 @@
               </li>
             </ul>
             <div class="py-1">
-              <a
-                href="#"
+              <p
+               @click="logOut()"
                 class="block py-2 px-4 text-sm text-gray-700 dark:text-gray-200 hover:bg-primary hover:text-white"
-                >Sign out</a
+                >Sign out</p
               >
             </div>
           </div>
@@ -155,7 +155,16 @@
     components: {
       Icon,
     },
+    computed: {
+    currentUser() {
+      return this.$store.state.auth.user;
+    },
+    },
     methods: {
+       logOut() {
+      this.$store.dispatch('auth/logout');
+      this.$router.push('/');
+    },
       menuToggle: function () {
         this.menu = !this.menu;
       },
