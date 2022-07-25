@@ -7,16 +7,20 @@
 
 
             <form class="modal-content py-4 text-left px-6" @submit.prevent="sendEmail">
-               <p class="text-xl text-center">Enter Emails</p>
-                
-                <input type="email" v-model="email" name="to_email" placeholder="Enter emails separated by semicolon(;)">
-                
+                <p class="text-xl text-center">Enter Emails</p>
+                <input type="text" name="subject" value="Take our survey"
+                    placeholder="Enter emails separated by semicolon(;)" hidden>
+                <input type="text" name="message" :value="setUrl" hidden>
+                <input type="email" v-model="email" name="to_email"
+                    placeholder="Enter emails separated by semicolon(;)">
+
+
 
                 <input type="submit" value="Send">
-                 <button @click="close_modal()"
-                        class="px-6 py-2 mr-4 font-medium text-white transition-colors duration-200 transform bg-gray-500 rounded-md hover:bg-gray-400 focus:bg-gray-400 focus:outline-none">
-                        Cancel
-                    </button>
+                <button @click="close_modal()"
+                    class="px-6 py-2 mr-4 font-medium text-white transition-colors duration-200 transform bg-gray-500 rounded-md hover:bg-gray-400 focus:bg-gray-400 focus:outline-none">
+                    Cancel
+                </button>
             </form>
         </div>
     </div>
@@ -29,14 +33,20 @@ export default {
     name: 'send-mail',
     props: {
         show: Boolean,
-        id: "",
+        id: Number,
 
     },
     data() {
         return {
             product_name: '',
             email: '',
-           
+
+        }
+    },
+    computed: {
+        setUrl() {
+            return location.origin + "/takesurvey/"+this.id;
+
         }
     },
     methods: {
@@ -45,15 +55,19 @@ export default {
         },
         sendEmail(e) {
             try {
-                emailjs.sendForm('service_project2022', 'template_rf3grza', e.target,
+                this.product_name = "Take survey";
+                document.getElementsByName("message")[0]._value = "testt link";
+
+
+                emailjs.sendForm("service_project2022", "template_fbpkdoq", e.target,
                     'WOtI46tV3gGSu9VIl', {
-                    subject: "Take Our Survey",
-                    message: "http://google.com",
-                    to_email: this.email,
+                    message: "https://google.com",
+                    subject: this.product_name,
+                    // to_email: this.email,
                 }).then(response => {
                     // this.surveys = response.data;
                     alert("Email Sent!!");
-                    this.$router.push({ name: 'SurveyList' });
+                    this.$emit("close");
                 })
 
             } catch (error) {

@@ -1,18 +1,12 @@
 <template>
 
-
+  <h2 class="text-center">{{ survey.title }}</h2>
   <div class="p-6 border border-gray-300 sm:rounded-md">
-     <div v-for="(question, index) in questions" :key="index">
-     <p>Question : {{ index + 1 }}</p>
-     <p>{{question.type}}</p>
-     </div>
-    <!-- <form method="POST" action="https://herotofu.com/start">
-      <label class="block mb-6">
-        <span class="text-gray-700">Your name</span>
-        <input
-          name="name"
-          type="text"
-          class="
+    <div v-for="(question, index) in questions" :key="index">
+    <div class="option-section" v-if="question.type === 'text'">
+     <label class="block mb-6">
+        <span class="text-gray-700">{{ index + 1 }} : {{ question.title }}</span>
+        <input :name="index" v-model="responses[index + 1]" type="text" class="
             block
             w-full
             mt-1
@@ -23,82 +17,17 @@
             focus:ring
             focus:ring-indigo-200
             focus:ring-opacity-50
-          "
-          placeholder="Joe Bloggs"
-        />
+          " />
       </label>
-      <label class="block mb-6">
-        <span class="text-gray-700">Email address</span>
-        <input
-          name="email"
-          type="email"
-          class="
-            block
-            w-full
-            mt-1
-            border-gray-300
-            rounded-md
-            shadow-sm
-            focus:border-indigo-300
-            focus:ring
-            focus:ring-indigo-200
-            focus:ring-opacity-50
-          "
-          placeholder="joe.bloggs@example.com"
-        />
-      </label>
-      <label class="block mb-6">
-        <span class="text-gray-700">When is your birthday?</span>
-        <input
-          name="birthday"
-          type="date"
-          class="
-            block
-            w-full
-            mt-1
-            border-gray-300
-            rounded-md
-            shadow-sm
-            focus:border-indigo-300
-            focus:ring
-            focus:ring-indigo-200
-            focus:ring-opacity-50
-          "
-        />
-      </label>
-      <label class="block mb-6">
-        <span class="text-gray-700"
-          >What kind of present you expect this year?</span
-        >
-        <select
-          name="present"
-          class="
-            block
-            w-full
-            mt-1
-            border-gray-300
-            rounded-md
-            shadow-sm
-            focus:border-indigo-300
-            focus:ring
-            focus:ring-indigo-200
-            focus:ring-opacity-50
-          "
-        >
-          <option>Chocolate cake</option>
-          <option>Dancing cat</option>
-          <option>Custom meme about me</option>
-          <option>Zoom backgrounds for the rest of my life</option>
-        </select>
-      </label>
+    </div>
+     <div class="option-section"  v-if="question.type === 'radiogroup'">
       <div class="mb-6">
+        <span class="text-gray-700">{{ index + 1 }} : {{ question.title }}</span>
         <div class="mt-2">
           <div>
-            <label class="inline-flex items-center">
-              <input
-                name="season"
-                type="radio"
-                class="
+            <div class="items-center" v-for="choice in question.choices" :key="choice">
+              
+              <input :name="index" type="radio" v-model="responses[index + 1]" class="
                   text-indigo-600
                   border-gray-300
                   rounded-full
@@ -108,38 +37,18 @@
                   focus:ring-offset-0
                   focus:ring-indigo-200
                   focus:ring-opacity-50
-                "
-                checked
-              />
-              <span class="ml-2">I like summer</span>
-            </label>
-          </div>
-          <div>
-            <label class="inline-flex items-center">
-              <input
-                name="season"
-                type="radio"
-                class="
-                  text-indigo-600
-                  border-gray-300
-                  rounded-full
-                  shadow-sm
-                  focus:border-indigo-300
-                  focus:ring
-                  focus:ring-offset-0
-                  focus:ring-indigo-200
-                  focus:ring-opacity-50
-                "
-              />
-              <span class="ml-2">I'm more into winter</span>
-            </label>
+                " />
+              <span class="ml-2">{{choice}}</span>
+            </div>
           </div>
         </div>
       </div>
-      <div class="mb-6">
-        <button
-          type="submit"
-          class="
+     </div>
+    
+    </div>
+
+    <div class="mb-6">
+      <button type="submit" class="
             h-10
             px-5
             text-indigo-100
@@ -149,13 +58,11 @@
             duration-150
             focus:shadow-outline
             hover:bg-indigo-800
-          "
-        >
-          Send Answers
-        </button>
-      </div>
-
-    </form> -->
+          " @click="submitSurvey()">
+        Submit
+      </button>
+    </div>
+      
   </div>
 
 
@@ -164,32 +71,47 @@
 <script>
 
 import SurveyData from "../../services/survey.service";
+import SurveyAnswer from "../../services/surveyAnswers.service";
 
 
 
 export default {
-    name: "view-survey",
-    props: ['id'],
-    mounted() {
-        console.log("iiiiiiii", this.id)
-        SurveyData.get(this.id)
-            .then(response => {
-                 var a = new Array(response.data);
-                    let result = JSON.parse(JSON.stringify(a[0].data))
-                console.log("survey view..", result); 
-                console.log("survey view22222..", result.title);  
+  name: "view-survey",
+  props: ['id'],
+  mounted() {
+    SurveyData.get(this.id)
+      .then(response => {
+        var a = new Array(response.data);
+        let result = JSON.parse(JSON.stringify(a[0].data))
 
-                this.survey =   response.data;
-                this.questions = response.data.data.pages[0].elements;                         
-            })
-    },
-    data() {
+        this.survey = response.data;
+        this.questions = response.data.data.pages[0].elements;
+      })
+  },
+  watch: {
+  },
+  data() {
 
-        return {
-            survey: Object,
-            questions:[]
-        };
+    return {
+      survey: Object,
+      questions: [],
+      answer: "",
+      responses: [],
+    };
+  },
+  methods: {
+    submitSurvey() {
+      console.log("add to list", this.responses);
+      var data ={
+        response : this.responses
+      }
+       SurveyAnswer.create(this.survey.title,this.id,data)
+        .then(response => {
+           this.$router.push('/survey/submit-response');
+        })
+      
     }
+  }
 };
 </script>
 

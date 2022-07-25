@@ -23,6 +23,7 @@ import CreateSurvey from "@/views/Survey/Create.vue";
 import ViewSurvey from "@/views/Survey/View.vue";
 import EditSurvey from "@/views/Survey/Edit.vue";
 import EmailSurvey from "@/views/Survey/SendEmail.vue";
+import ThankYou from "@/views/Survey/submit.vue"
 
 var appname = " - Dashboard Admin Template";
 
@@ -113,6 +114,12 @@ const routes = [
     component: ViewSurvey,
     props: true
 },
+{
+  path: "/takesurvey/:id",
+  name: "take-survey",
+  component: ViewSurvey,
+  props: true
+},
   {
     path: '/survey/create',
     name: 'create-survey',
@@ -126,9 +133,15 @@ const routes = [
   },
  
 {
-  path: "/survey/send",
+  path: "/survey/send/:id",
   name: "send-survey",
   component: EmailSurvey,
+  props: true
+},
+{
+  path: "/survey/submit-response",
+  name: "submit-survey",
+  component: ThankYou,
   props: true
 },
 ];

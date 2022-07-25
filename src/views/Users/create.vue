@@ -67,10 +67,9 @@ export default {
     handleRegister() {
       this.message = '';
       this.submitted = true;
-      console.log("uuuuuu",)
       //   this.$validator.validate().then(isValid => {
       // if (isValid) {
-      console.log(this.user)
+      // console.log(this.user)
       this.$store.dispatch('auth/register', this.user).then(
         data => {
           this.message = data.message;

@@ -20,6 +20,8 @@ app.use(store);
 app.mount("#app");
 
 // router.beforeEach((to, from, next) => {
+//     console.log("beforeeeeeee",location.href);
+//     console.log("tooooooo",to.query);
 //   document.querySelector(".flex-sidebar").classList.add("hidden");
 //   next();
 // });

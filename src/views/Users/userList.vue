@@ -148,7 +148,6 @@ export default {
 			//  console.log("tttttttt",  this.searched)
 		},
 		saveRole(e, u) {
-			console.log("eeeeeee", e.target.value + "-------" + u.id);
 			var data = {
 				"roles": [e.target.value]
 			}

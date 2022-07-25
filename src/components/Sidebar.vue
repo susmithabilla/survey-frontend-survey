@@ -119,7 +119,6 @@ export default {
   computed: {
     isSuperAdmin() {
       var currentUser =  this.$store.state.auth.user;
-      console.log('currentUser.roles..', currentUser.roles.includes("ROLE_SUPERADMIN"));
       return currentUser.roles.includes("ROLE_SUPERADMIN");
     }
   },

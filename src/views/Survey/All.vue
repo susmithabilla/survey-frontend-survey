@@ -65,7 +65,7 @@
               <span @click="Edit(survey)" class="font-medium cursor-pointer text-gray-600 dark:text-gray-500 hover:underline mr-3">Edit </span>
               <span @click="Delete(survey)"
                 class="font-medium cursor-pointer text-red-600 dark:red-blue-500 hover:underline mr-3">Delete </span>
-              <span class="font-medium cursor-pointer text-blue-600 dark:text-blue-500 hover:underline" @click="showModal = true">Share </span>
+              <span class="font-medium cursor-pointer text-blue-600 dark:text-blue-500 hover:underline" @click="shareSurvey(survey)">Share </span>
             </td>
           </tr>
           <tr v-else-if="currentUser.id == survey.userId" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
@@ -87,14 +87,14 @@
               <span @click="Edit(survey)" class="font-medium cursor-pointer text-gray-600 dark:text-gray-500 hover:underline mr-3">Edit </span>
               <span @click="Delete(survey)"
                 class="font-medium cursor-pointer text-red-600 dark:red-blue-500 hover:underline mr-3">Delete </span>
-              <span class="font-medium cursor-pointer text-blue-600 dark:text-blue-500 hover:underline" @click="showModal = true">Share </span>
+              <span class="font-medium cursor-pointer text-blue-600 dark:text-blue-500 hover:underline" @click="shareSurvey(survey)">Share </span>
             </td>
           </tr>
 
         </tbody>
       </table>
     </div>
-<SendEmail :show="showModal" @close="getSurveys()"> </SendEmail>
+<SendEmail :show="showModal" :id="surveyId" @close="getSurveys()"> </SendEmail>
   </div>
 
  
@@ -114,7 +114,8 @@ export default {
     return {
       content: '',
       surveys: [],
-      showModal: false
+      showModal: false,
+      surveyId : Number
     };
   },
   components: {
@@ -140,7 +141,7 @@ export default {
       SurveyData.getAll()
         .then(response => {
           this.surveys = response.data;
-          console.log("ssssss",this.surveys.length)
+          // console.log("ssssss",this.surveys.length)
         })
     },
     searchOnTable() {
@@ -152,13 +153,19 @@ export default {
      
     },
     View(survey) {
-      this.$router.push({ name: 'view-survey', params: { id: survey.id } });
+      // this.$router.push({ name: 'view-survey', params: { id: survey.id } });
+      let route = this.$router.resolve({ name: 'take-survey', params: { id: survey.id } });
+      window.open(route.href);
     },
     Edit(survey) {
       this.$router.push({ name: 'edit-survey', params: { id: survey.id } });
     },
-    Share(survey) {
-      this.$router.push({ name: 'send-survey' });
+    shareSurvey(survey) {
+
+      this.surveyId = survey.id;
+
+      this.showModal = true;
+      
     },
     Delete(survey) {
       SurveyData.delete(survey.id)

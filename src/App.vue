@@ -1,6 +1,10 @@
 <template>
   <!-- App -->
-  <div v-if="currentUser" class="flex bg-packed font-lexend dark:bg-gray-900">
+  <div v-if="checkUrl">
+  <router-view />
+  </div>
+  <div v-else-if="currentUser" class="flex bg-packed font-lexend dark:bg-gray-900">
+ 
     <div id="sidebar-scroll"
       class="flex-sidebar lg:flex-auto w-sidebar lg:block hidden bg-white dark:bg-gray-800 border-r-2 dark:border-gray-700 h-screen lg:z-0 z-40 overflow-auto lg:relative fixed">
       <Sidebar />
@@ -11,6 +15,7 @@
       <router-view />
       <Footer />
     </div>
+    
 
   </div>
   <!-- end app -->
@@ -20,7 +25,6 @@
 </template>
 
 <script>
-// vue Components
 import Sidebar from "@/components/Sidebar";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -36,8 +40,12 @@ export default {
     Sidebar,
   },
   computed: {
-    currentUser() {
-      console.log(this.$store.state.auth.user);
+   
+    checkUrl(){
+return this.$route.path.includes('/takesurvey') || this.$route.path.includes('/submit-response')
+    },
+     currentUser() {
+      
       return this.$store.state.auth.user;
     },
     showAdminBoard() {

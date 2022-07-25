@@ -40,8 +40,6 @@ export default {
     if (this.id) {
       SurveyData.get(this.id)
         .then(response => {
-            console.log("testttt", JSON.stringify(response.data["data"]));
-          console.log("respp", JSON.stringify(response.data["data"]));
           creator.text = JSON.stringify(response.data["data"]);
         })
     }
