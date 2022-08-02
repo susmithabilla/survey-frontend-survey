@@ -1,64 +1,99 @@
 <template>
-  <div id="app">
-    <nav class="navbar navbar-expand bgNav">
-       <img src="../public/survey-check1.png" alt="..." height="50">
-      <a href="/" class="navbar-brand">SurveyCreator</a>
-      <div class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <router-link to="/" class="nav-link">
-            <font-awesome-icon icon="home" /> Home
-          </router-link>
-        </li>
-      </div>
 
-      <div class="navbar-nav ml-auto">
-       
-        <li class="nav-item">
-          <router-link to="/login" class="menuItems nav-link">
-             Login
-          </router-link>
-        </li>
-         <li class="nav-item">
-          <router-link to="/register" class="nav-link">
-             <button class="btn btn-outline-success btn-sm my-2 my-sm-0" type="submit"><font-awesome-icon icon="user-plus" /> Sign Up</button>
-          </router-link>
-        </li>
-      </div>
-
-    </nav>
-
-    <div class="container">
-      <router-view />
+  <!-- App -->
+  <div v-if="checkUrl">
+  <router-view />
+  </div>
+  <div v-else-if="currentUser" class="flex bg-packed font-lexend dark:bg-gray-900">
+ 
+    <div id="sidebar-scroll"
+      class="flex-sidebar lg:flex-auto w-sidebar lg:block hidden bg-white dark:bg-gray-800 border-r-2 dark:border-gray-700 h-screen lg:z-0 z-40 overflow-auto lg:relative fixed">
+      <Sidebar />
     </div>
+    <div class="flex-auto w-full overflow-auto h-screen" id="body-scroll">
+
+      <Header />
+      <router-view />
+      <Footer />
+    </div>
+    
+
+  </div>
+  <!-- end app -->
+  <div v-else>
+    <router-view />
+
   </div>
 </template>
 
 <script>
+import Sidebar from "@/components/Sidebar";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+// npm-js
+import Scrollbar from "smooth-scrollbar";
+
 export default {
+  name: "App",
+
+  components: {
+    Header,
+    Footer,
+    Sidebar,
+  },
   computed: {
-    currentUser() {
+   
+    checkUrl(){
+return this.$route.path.includes('/takesurvey') || this.$route.path.includes('/submit-response')
+    },
+     currentUser() {
+      return this.$store.state.auth.user;
+    },
+    showAdminBoard() {
+      if (this.currentUser && this.currentUser['roles']) {
+        return this.currentUser['roles'].includes('ROLE_SUPERADMIN');
+      }
+
+      return false;
+    },
+    showGuestBoard() {
+      if (this.currentUser && this.currentUser['roles']) {
+        return this.currentUser['roles'].includes('ROLE_ADMIN');
+      }
+
       return false;
     }
   },
-  methods: {
-  }
+  mounted() {
+     Scrollbar.init(document.querySelector("#body-scroll"));
+
+      setTimeout(() => {
+        var alert_dis = document.querySelectorAll(".alert-dismiss");
+        alert_dis.forEach((x) =>
+          x.addEventListener("click", function () {
+            x.parentElement.classList.add("hidden");
+          })
+        );
+      }, 100);
+
+    // var acc = document.getElementsByClassName("accordion");
+    // var i;
+    // for (i = 0; i < acc.length; i++) {
+    //   acc[i].addEventListener("click", function () {
+    //     this.classList.toggle("active");
+    //     var panel = this.nextElementSibling;
+    //     if (panel.style.display === "block") {
+    //       panel.style.display = "none";
+    //       this.classList.remove("bg-gray-100");
+    //       this.classList.add("bg-transparent");
+    //     } else {
+    //       panel.style.display = "block";
+    //       this.classList.add("bg-gray-100");
+    //       this.classList.remove("bg-transparent");
+    //     }
+    //   });
+    // }
+  },
 };
 </script>
 
-
-<style>
-
-.bgNav{
-  background-color: #28a745!important;
-}
-
-.bgNav .navbar-brand{
-  font-weight:600;
-  color:white;
-}
-
-.bgNav .navbar-nav .nav-link {
-color: rgb(255 255 255 / 83%) !important;
-}
-
-</style>
