@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8080/api/surveys';
+const API_URL = 'http://ec2-3-15-46-217.us-east-2.compute.amazonaws.com/api/surveys';
 
 
 class SurveyService {

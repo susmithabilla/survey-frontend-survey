@@ -77,25 +77,6 @@
           </menu-accordion>
         </div>
       </div>
-      <p class="font-medium text-gray-400 mt-4 dark:text-gray-600">
-        Reports/ Analytics
-      </p>
-
-
-
-
-      <div class="item mt-3">
-        <router-link to="/survey">
-          <button
-            class="text-gray-800 dark:text-gray-500 bg-transparent hover:bg-gray-100 dark:hover:bg-gray-700 w-full flex text-left rounded-md box-border p-3">
-            <span class="mr-3 text-xl">
-              <Icon icon="carbon:data-table" />
-            </span>
-            <span class="w-full"> Reports </span>
-            <span class="box-border mt-1 text-gray-500"> </span>
-          </button>
-        </router-link>
-      </div>
     </div>
   </nav>
 </template>

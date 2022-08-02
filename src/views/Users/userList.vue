@@ -44,10 +44,11 @@
 						</th>
 					</tr>
 				</thead>
-				<tbody v-for="user in users" :key="user.id" :user="user">
+				<tbody v-for="(user,i) in users" :key="user.id" :user="user">
 					<tr v-if="user.id != currentUser.id"
 						class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
 						<td class="px-6 py-4">
+							{{i}}
 						</td>
 
 						<th scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
@@ -175,7 +176,7 @@ export default {
 </script>
 
 <style>
-table {
+/* table {
 	counter-reset: rowNumber-1;
 }
 
@@ -185,5 +186,5 @@ table tr {
 
 table tr td:first-child::before {
 	content: counter(rowNumber);
-}
+} */
 </style>

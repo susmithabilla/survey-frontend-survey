@@ -33,18 +33,6 @@
         </h2>
       </div>
       <div class="mr-5 flex">
-        <!-- <div
-          class="input-box border dark:bg-gray-900 dark:border-gray-700 rounded-md mr-5 hidden lg:w-search w-full box-border lg:flex md:flex focus-within:bg-gray-100 dark:focus-within:bg-gray-700"
-        >
-          <span class="text-3xl p-2 text-gray-400"
-            ><Icon icon="ei:search"
-          /></span>
-          <input
-            type="text"
-            placeholder="Search..."
-            class="p-3 w-full bg-white dark:bg-gray-900 rounded-md outline-none focus:bg-gray-100 dark:focus:bg-gray-700"
-          />
-        </div> -->
         <button
           id="theme-toggle"
           type="button"
@@ -76,9 +64,6 @@
           </svg>
         </button>
 
-        <button class="mr-5 text-2xl text-gray-500">
-          <Icon icon="clarity:notification-line" />
-        </button>
         <button @click="menuToggle" @blur="menuToggleBlur">
           <div
             class="user-avatar flex hover:bg-gray-100 dark:hover:bg-gray-700 p-1 cursor-pointer rounded-md"
@@ -109,25 +94,11 @@
               aria-labelledby="dropdownSmallButton"
             >
               <li>
-                <a
-                  href="#"
-                  class="block py-2 px-4 0 hover:bg-primary hover:text-white"
-                  >User Profile</a
-                >
-              </li>
-              <li>
-                <a
-                  href="#"
-                  class="block py-2 px-4 hover:bg-primary hover:text-white"
-                  >Settings</a
-                >
-              </li>
-              <li>
-                <a
-                  href="#"
-                  class="block py-2 px-4 hover:bg-primary hover:text-white"
-                  >Github</a
-                >
+             
+                <p
+               @click="showProfile()"
+                class="block py-2 px-4 text-sm text-gray-700 dark:text-gray-200 hover:bg-primary hover:text-white"
+                >User Profile</p>
               </li>
             </ul>
             <div class="py-1">
@@ -164,6 +135,9 @@
        logOut() {
       this.$store.dispatch('auth/logout');
       this.$router.push('/');
+    },
+    showProfile(){
+this.$router.push('/profile');
     },
       menuToggle: function () {
         this.menu = !this.menu;

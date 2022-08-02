@@ -12,6 +12,7 @@ import Vcard from "../views/components/card.vue";
 import Survey from "../components/survey.vue";
 import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";
+import Profile from "../views/Profile.vue";
 
 
 import UserList from "../views/Users/userList.vue";
@@ -22,8 +23,7 @@ import Surveys from "@/views/Survey/All.vue";
 import CreateSurvey from "@/views/Survey/Create.vue";
 import ViewSurvey from "@/views/Survey/View.vue";
 import EditSurvey from "@/views/Survey/Edit.vue";
-import EmailSurvey from "@/views/Survey/SendEmail.vue";
-import ThankYou from "@/views/Survey/submit.vue"
+
 
 var appname = " - Dashboard Admin Template";
 
@@ -49,6 +49,10 @@ const routes = [
   {
     path: '/register',
     component: Register
+  },
+  {
+    path: '/profile',
+    component: Profile
   },
 
   // Components based Routes
@@ -138,15 +142,11 @@ const routes = [
   component: EmailSurvey,
   props: true
 },
-{
-  path: "/survey/submit-response",
-  name: "submit-survey",
-  component: ThankYou,
-  props: true
-},
+
 ];
 
 const router = createRouter({
+  base:process.env.NODE_ENV === 'development'? '/' : '/survey-frontend/',
   history: createWebHistory(process.env.BASE_URL),
   routes,
 
